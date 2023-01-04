@@ -1,0 +1,7 @@
+﻿@model IEnumerable<THI3.Models.Department>
+    @foreach(var item in Model)
+    {
+        var url = "/List/" + item.deptid;
+        <a href="@url">@item.deptname</a>
+        <label>|</label>
+    }

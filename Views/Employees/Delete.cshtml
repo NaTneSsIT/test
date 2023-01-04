@@ -1,0 +1,95 @@
+﻿@model THI3.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.deptname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.deptname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="button" value="Delete" id="btnDel" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#btnDel").click(function () {
+            var nv = {};
+            nv.eid = @Model.eid;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("/Delete")",
+                data: "{nv: " + JSON.stringify(nv) + "}",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    confirm(res.mess);
+                    window.location.href = "/Employees/Index";
+                }
+            });
+            return false;
+        });
+    });
+    </script>
+</div>
+
